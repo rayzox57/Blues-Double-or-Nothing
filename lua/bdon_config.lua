@@ -44,26 +44,104 @@ BDON_CONFIG.AdminRanks = {
 --If the sounds are too loud, you can change this. It is between 0 and 1
 BDON_CONFIG.Volume = 1
 
+--You can change money Method
+	--DRP = DarkRP Money System
+	--PS1 = PointShop1 Money
+	--PS2 = PointShop2 Money
+	--PPS2 = Premium PointShop2 Money
+	--CSM = Custom Money System (Use all override functions in bottom of this file)
+	--FREE = No Money (Just for fun)
+
+BDON_CONFIG.Curreny = "PS2"
+
 --You can change this to anything, or thing. This gets added before any money amount is shown
-BDON_CONFIG.CurrenyPrefix = "$"
+BDON_CONFIG.CurrenyPrefixBefore = ""
+BDON_CONFIG.CurrenyPrefixAfter = "PTS"
+
+--[[-------------------------------------------------------------------------
+Custom Money Method
+---------------------------------------------------------------------------]]
+
+BDON_CONFIG.custom = {}
+
+BDON_CONFIG.custom.addMoney = function(ply, amount)
+	
+end
+
+BDON_CONFIG.custom.canAfford = function(ply, amount)
+	return true
+end
+
+BDON_CONFIG.custom.takeMoney = function(ply, amount)
+	
+end
+
+
 
 
 --[[-------------------------------------------------------------------------
-Below is three functions, these can be used to easily add support for any gamemode you want
-This is currently configured for darkrp, if you don't know how to change this then please
-open a support ticket and i'll send you the code for it.
+Money Method (!! DON'T CHANGE THIS !!)
 ---------------------------------------------------------------------------]]
 
 BDON_CONFIG.addMoney = function(ply, amount)
-	ply:addMoney(amount) --DarkRP
+	local c = BDON_CONFIG.Curreny
+	if(c == "DRP") then
+		ply:addMoney(amount)
+	elseif(c == "PS1") then
+		ply:PS_GivePoints(amount)
+	elseif(c == "PS2") then
+		ply:PS2_AddStandardPoints(amount)
+	elseif(c == "PPS2") then
+		ply:PS2_AddPremiumPoints(amount)
+	elseif(c == "CSM") then
+		BDON_CONFIG.custom.addMoney(ply,amount)
+	end
 end
 
 BDON_CONFIG.canAfford = function(ply, amount)
-	return ply:canAfford(amount) --DarkRP
+	local c = BDON_CONFIG.Curreny
+	if(c == "DRP") then
+		return ply:canAfford(amount)
+	elseif(c == "PS1") then
+		return ply:PS_HasPoints(amount)
+	elseif(c == "PS2") then
+		return ply.PS2_Wallet.points - amount >= 0
+	elseif(c == "PPS2") then
+		return ply.PS2_Wallet.premiumPoints - amount >= 0
+	elseif(c == "CSM") then
+		return BDON_CONFIG.custom.canAfford(ply,amount)
+	end
+	return true
 end
 
 BDON_CONFIG.takeMoney = function(ply, amount)
-	ply:addMoney(amount * -1) --DarkRP
+	local c = BDON_CONFIG.Curreny
+	if(c == "DRP") then
+		ply:addMoney(amount * -1)
+	elseif(c == "PS1") then
+		ply:PS_TakePoints(amount)
+	elseif(c == "PS2") then
+		ply:PS2_AddStandardPoints(-amount)
+	elseif(c == "PPS2") then
+		ply:PS2_AddPremiumPoints(-amount)
+	elseif(c == "CSM") then
+		BDON_CONFIG.custom.takeMoney(ply,amount)
+	end
+end
+
+BDON_CONFIG.showMoney = function(amount)
+
+	local f = amount
+	while true do   
+	   	f, k = string.gsub(f, "^(-?%d+)(%d%d%d)", '%1,%2')
+	   	if (k==0) then
+			break 
+		end
+	end
+
+	if(BDON_CONFIG.Curreny == "FREE") then f = "0" end
+
+	return string.format("%s%s%s",BDON_CONFIG.CurrenyPrefixBefore,f,BDON_CONFIG.CurrenyPrefixAfter)
 end
 
 

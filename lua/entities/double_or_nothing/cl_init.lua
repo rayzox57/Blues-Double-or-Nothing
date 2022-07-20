@@ -227,8 +227,8 @@ jackpotFrames[9] = function(ScrW, ScrH, ent)
 	draw.SimpleText("YOUR PRIZE", "BDON_LARGE", ScrW/2 + 5, 450 + 5 - 30, Color(60,60,60,255), 1, 0)
 	draw.SimpleText("YOUR PRIZE", "BDON_LARGE", ScrW/2, 450 - 30, Color(255,255,255, 255), 1, 0)
  
-	draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(ent:GetJackpot()), "BDON_LARGE", ScrW/2 + 5, 450 + 5 + 75, Color(60,60,60,255), 1, 0)
-	draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(ent:GetJackpot()), "BDON_LARGE", ScrW/2, 450 + 75, Color(255,255,255,255), 1, 0)
+	draw.SimpleText(BDON_CONFIG.showMoney(ent:GetJackpot()), "BDON_LARGE", ScrW/2 + 5, 450 + 5 + 75, Color(60,60,60,255), 1, 0)
+	draw.SimpleText(BDON_CONFIG.showMoney(ent:GetJackpot()), "BDON_LARGE", ScrW/2, 450 + 75, Color(255,255,255,255), 1, 0)
 
 	surface.SetDrawColor(Color(255,255,255,255))
 	surface.SetMaterial(screenOverlay) 
@@ -251,8 +251,8 @@ jackpotFrames[10] = function(ScrW, ScrH, ent)
  
 	local prizeValue = math.floor(Lerp(1 - prizeLerpValue, ent:GetJackpot(), 0))
 
-	draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(prizeValue), "BDON_LARGE", ScrW/2 + 5, 450 + 5 + 75, Color(60,60,60,255), 1, 0)
-	draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(prizeValue), "BDON_LARGE", ScrW/2, 450 + 75, Color(255,255,255,255), 1, 0)
+	draw.SimpleText(BDON_CONFIG.showMoney(prizeValue), "BDON_LARGE", ScrW/2 + 5, 450 + 5 + 75, Color(60,60,60,255), 1, 0)
+	draw.SimpleText(BDON_CONFIG.showMoney(prizeValue), "BDON_LARGE", ScrW/2, 450 + 75, Color(255,255,255,255), 1, 0)
 
 	surface.SetDrawColor(Color(255,255,255,255))
 	surface.SetMaterial(screenOverlay) 
@@ -284,8 +284,8 @@ function ENT:DrawScreen(ScrW, ScrH)
 		draw.SimpleText("YOU WON!", "BDON_LARGE", ScrW/2 + 5, 350 + 5 - 30, Color(60,60,60,255), 1, 0)
 		draw.SimpleText("YOU WON!", "BDON_LARGE", ScrW/2, 350 - 30, Color(255,255,255,255), 1, 0)
 
-		draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(self:GetCashOutAmount()), "BDON_LARGE", ScrW/2 + 5, 350 + 5 + 75, Color(60,60,60,255), 1, 0)
-		draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(self:GetCashOutAmount()), "BDON_LARGE", ScrW/2, 350 + 75, Color(255,255,255,255), 1, 0)
+		draw.SimpleText(BDON_CONFIG.showMoney(self:GetCashOutAmount()), "BDON_LARGE", ScrW/2 + 5, 350 + 5 + 75, Color(60,60,60,255), 1, 0)
+		draw.SimpleText(BDON_CONFIG.showMoney(self:GetCashOutAmount()), "BDON_LARGE", ScrW/2, 350 + 75, Color(255,255,255,255), 1, 0)
 
 		--Draw the current user 
 		local textToDisplay = "Current User : "..self:GetUserName()
@@ -311,14 +311,14 @@ function ENT:DrawScreen(ScrW, ScrH)
 		surface.SetMaterial(startMaterial) 
 		surface.DrawTexturedRectRotated(ScrW/2, ScrH/2, 1150, 512, self.textRotation)	
 
-		draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(BDON_CONFIG.bet).." PER GAME", "BDON_LARGE", ScrW/2 + 5, 350 + 5, Color(60,60,60,255), 1, 0)
-		draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(BDON_CONFIG.bet).." PER GAME", "BDON_LARGE", ScrW/2, 350, Color(255,255,255,255), 1, 0)
+		draw.SimpleText(BDON_CONFIG.showMoney(BDON_CONFIG.bet).." PER GAME", "BDON_LARGE", ScrW/2 + 5, 350 + 5, Color(60,60,60,255), 1, 0)
+		draw.SimpleText(BDON_CONFIG.showMoney(BDON_CONFIG.bet).." PER GAME", "BDON_LARGE", ScrW/2, 350, Color(255,255,255,255), 1, 0)
 
 		draw.SimpleText("Reach X10 for the Jackpot!", "BDON_MEDIAM", ScrW/2 + 5, ScrH - 450 + 5, Color(60,60,60,255), 1, 0)
 		draw.SimpleText("Reach X10 for the Jackpot!", "BDON_MEDIAM", ScrW/2, ScrH - 450, Color(255,255,255,255), 1, 0)
 
-		draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(self:GetJackpot()), "BDON_MEDIAM", ScrW/2 + 5, ScrH - 450 + 5 + 75, Color(60,60,60,255), 1, 0)
-		draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(self:GetJackpot()), "BDON_MEDIAM", ScrW/2, ScrH - 450 + 75, Color(255,255,255,255), 1, 0)
+		draw.SimpleText(BDON_CONFIG.showMoney(self:GetJackpot()), "BDON_MEDIAM", ScrW/2 + 5, ScrH - 450 + 5 + 75, Color(60,60,60,255), 1, 0)
+		draw.SimpleText(BDON_CONFIG.showMoney(self:GetJackpot()), "BDON_MEDIAM", ScrW/2, ScrH - 450 + 75, Color(255,255,255,255), 1, 0)
 
 		--Draw the current user 
 		local textToDisplay = "Current User : "..self:GetUserName()
@@ -365,8 +365,8 @@ function ENT:DrawScreen(ScrW, ScrH)
 	end
 
 	--Draw winning amount so far
-	draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(bet), "BDON_LARGE", ScrW/2 + 5, 350 + 5, Color(60,60,60,255), 1, 0)
-	draw.SimpleText(BDON_CONFIG.CurrenyPrefix..comma_value(bet), "BDON_LARGE", ScrW/2, 350, Color(255,255,255,255), 1, 0)
+	draw.SimpleText(BDON_CONFIG.showMoney(bet), "BDON_LARGE", ScrW/2 + 5, 350 + 5, Color(60,60,60,255), 1, 0)
+	draw.SimpleText(BDON_CONFIG.showMoney(bet), "BDON_LARGE", ScrW/2, 350, Color(255,255,255,255), 1, 0)
 
 
 	--Draw the current user 
@@ -572,7 +572,7 @@ net.Receive("bdn:jackpotinfo", function()
 	local ply = net.ReadEntity()
 	local amount = net.ReadInt(32)
 
-	chat.AddText(Color(255,255,255), "[BLUE'S SLOTS] ", Color(255,0,255), ply:Name(), Color(255,255,255), " just won ", Color(255,0,255), BDON_CONFIG.CurrenyPrefix..comma_value(amount), Color(255,255,255), " on ", Color(0,255,0), "Double ", Color(255,255,255), "Or ", Color(255,0,0), "Nothing!")
+	chat.AddText(Color(255,255,255), "[BLUE'S SLOTS] ", Color(255,0,255), ply:Name(), Color(255,255,255), " just won ", Color(255,0,255), BDON_CONFIG.showMoney(amount), Color(255,255,255), " on ", Color(0,255,0), "Double ", Color(255,255,255), "Or ", Color(255,0,0), "Nothing!")
 end)
 --Sound related stuff
 
