@@ -21,6 +21,9 @@ Read me first!
 --Just leave this here, you dont need to change it
 BDON_CONFIG = {}
 
+--Time seconds before switch 
+BDON_CONFIG.switchTime = 30
+
 --This is the base bet amount. Change this how you please, the winnings scale with it (except for jackpot)
 BDON_CONFIG.bet = 500 
 

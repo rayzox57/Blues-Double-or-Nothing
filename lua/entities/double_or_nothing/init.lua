@@ -184,7 +184,7 @@ function ENT:Think()
 	end
 
 	--Handle clearing a user who has been AFK for too long
-	if self.user ~= nil and self.timeSinceLastUsed + 30 - CurTime() < 0 then
+	if self.user ~= nil and self.timeSinceLastUsed + BDON_CONFIG.switchTime - CurTime() < 0 then
 		--Times up
 		self.user = nil
 		self:SetUserName("Nobody")
@@ -347,7 +347,7 @@ function ENT:Think()
 			return
 		end
 
-		if CurTime() - self.user.bdonTimeSinceLastUse >= 30 then
+		if CurTime() - self.user.bdonTimeSinceLastUse >= BDON_CONFIG.switchTime then
 			self:UnlinkUser()
 		end
 	end
@@ -386,8 +386,11 @@ end)
 
 timer.Create("bdon:cleanUpUsedMachines", 1, 0, function()
 	for k ,v in pairs(player.GetAll()) do
-		if v.bdonTimeSinceLastUse ~= nil and v.bdonLastUsedSlot ~= nil and CurTime() - v.bdonTimeSinceLastUse > 30 then
-			v.bdonLastUsedSlot:UnlinkUser()
+		if v.bdonTimeSinceLastUse ~= nil and v.bdonLastUsedSlot ~= nil and CurTime() - v.bdonTimeSinceLastUse > BDON_CONFIG.switchTime then
+			if not pcall(function() v.bdonLastUsedSlot:UnlinkUser() end) then
+				v.bdonLastUsedSlot = nil
+				v.bdonTimeSinceLastUse = 0
+			end
 		end
 	end
 end)
