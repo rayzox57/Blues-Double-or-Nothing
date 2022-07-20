@@ -557,7 +557,7 @@ end)
 net.Receive("bdn:winninginfo", function()
 	local winAmount = net.ReadInt(32)
 
-	chat.AddText(Color(255,255,255), "[BLUE'S SLOTS] Congratulations, You just won ", Color(255,0,255), "$"..comma_value(winAmount))
+	chat.AddText(Color(255,255,255), "[BLUE'S SLOTS] Congratulations, You just won ", Color(255,0,255), BDON_CONFIG.showMoney(winAmount))
 end)
 
 net.Receive("bdn:beginjackpot", function()
