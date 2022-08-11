@@ -432,6 +432,9 @@ end
 hook.Add("InitPostEntity", "SpawnDoubleOrNothingSlots", function()
 	LoadDoubleOrNothingSlots()
 end)
+hook.Add("PostCleanupMap", "PostCleanupMapDoubleOrNothingSlots", function()
+	LoadDoubleOrNothingSlots()
+end)
 
 --Handle saving and loading of slots
 hook.Add("PlayerSay", "HandleBDONCommands" , function(ply, text)
