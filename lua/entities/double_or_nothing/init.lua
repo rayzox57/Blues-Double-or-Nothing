@@ -438,7 +438,7 @@ end)
 
 --Handle saving and loading of slots
 hook.Add("PlayerSay", "HandleBDONCommands" , function(ply, text)
-	if string.sub(string.lower(text), 1, 10) == "!saveslots" then
+	if string.sub(string.lower(text), 1, 10) == "!savebdon" then
 		if table.HasValue(BDON_CONFIG.AdminRanks, ply:GetUserGroup()) then
 			SaveDoubleOrNothingSlots()
 			ply:ChatPrint("Double Or Nothing Slot Machines have been saved for the map "..game.GetMap().."!")
